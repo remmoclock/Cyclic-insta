@@ -12,13 +12,13 @@ const requireLogin = require("../middleware/requireLogin");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API);
 
-router.get("https://insta-mern-ap.herokuapp.com/protected", requireLogin, (req, res) => {
+router.get("/protected", requireLogin, (req, res) => {
   res.send("hello protected route");
 });
 
 // SIGNUP
 
-router.post("https://insta-mern-ap.herokuapp.com/signup", (req, res) => {
+router.post("/signup", (req, res) => {
   const { name, email, password, pic } = req.body;
   if (!email || !password || !name) {
     return res.status(422).json({ error: "Please add all the fields" });
@@ -55,7 +55,7 @@ router.post("https://insta-mern-ap.herokuapp.com/signup", (req, res) => {
 
 // SIGNIN
 
-router.post("https://insta-mern-ap.herokuapp.com/signin", (req, res) => {
+router.post("/signin", (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(422).json({ error: "please add email or password" });
@@ -87,7 +87,7 @@ router.post("https://insta-mern-ap.herokuapp.com/signin", (req, res) => {
 
 // RESET PASSWORD
 
-router.post("https://insta-mern-ap.herokuapp.com/reset-password", (req, res) => {
+router.post("/reset-password", (req, res) => {
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
       console.log(err);
@@ -121,7 +121,7 @@ router.post("https://insta-mern-ap.herokuapp.com/reset-password", (req, res) => 
 
 // NEW PASSWORD
 
-router.post("https://insta-mern-ap.herokuapp.com/new-password", (req, res) => {
+router.post("/new-password", (req, res) => {
   const newPassword = req.body.password;
   const sentToken = req.body.token;
   User.findOne({ resetToken: sentToken, expireToken: { $gt: Date.now() } })
