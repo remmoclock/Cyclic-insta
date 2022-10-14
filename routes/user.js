@@ -5,7 +5,7 @@ const requireLogin = require("../middleware/requireLogin");
 const Post = mongoose.model("Post");
 const User = mongoose.model("User");
 
-router.get("/user/:id", requireLogin, (req, res) => {
+router.get("https://insta-mern-ap.herokuapp.com/user/:id", requireLogin, (req, res) => {
   User.findOne({ _id: req.params.id })
     .select("-password") // filter password from response ( no need )
     .then((user) => {
@@ -23,7 +23,7 @@ router.get("/user/:id", requireLogin, (req, res) => {
     });
 });
 
-router.put("/follow", requireLogin, (req, res) => {
+router.put("https://insta-mern-ap.herokuapp.com/follow", requireLogin, (req, res) => {
   User.findByIdAndUpdate(
     req.body.followId,
     {
@@ -54,7 +54,7 @@ router.put("/follow", requireLogin, (req, res) => {
   );
 });
 
-router.put("/unfollow", requireLogin, (req, res) => {
+router.put("https://insta-mern-ap.herokuapp.com/unfollow", requireLogin, (req, res) => {
   User.findByIdAndUpdate(
     req.body.unfollowId,
     {
@@ -85,7 +85,7 @@ router.put("/unfollow", requireLogin, (req, res) => {
   );
 });
 
-router.put("/updatepic", requireLogin, (req, res) => {
+router.put("https://insta-mern-ap.herokuapp.com/updatepic", requireLogin, (req, res) => {
   User.findByIdAndUpdate(
     req.user._id,
     { $set: { pic: req.body.pic } },
@@ -100,7 +100,7 @@ router.put("/updatepic", requireLogin, (req, res) => {
   ).select("-password");
 });
 
-router.post("/search-users", (req, res) => {
+router.post("https://insta-mern-ap.herokuapp.com/search-users", (req, res) => {
   let userPattern = new RegExp("^" + req.body.query);
   User.find({ email: { $regex: userPattern } })
     .select("_id email")

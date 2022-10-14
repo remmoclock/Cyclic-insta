@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const Post = mongoose.model("Post");
 const requireLogin = require("../middleware/requireLogin");
 
-router.get("/allpost", requireLogin, (req, res) => {
+router.get("https://insta-mern-ap.herokuapp.com/allpost", requireLogin, (req, res) => {
   Post.find()
     .populate("postedBy", "_id name")
     .populate("comments.postedBy", "_id name")
@@ -17,7 +17,7 @@ router.get("/allpost", requireLogin, (req, res) => {
     });
 });
 
-router.get("/getsubpost", requireLogin, (req, res) => {
+router.get("https://insta-mern-ap.herokuapp.com/getsubpost", requireLogin, (req, res) => {
   // if postedBy in following
   Post.find({ postedBy: { $in: req.user.following } })
     .populate("postedBy", "_id name")
@@ -31,7 +31,7 @@ router.get("/getsubpost", requireLogin, (req, res) => {
     });
 });
 
-router.get("/mypost", requireLogin, (req, res) => {
+router.get("https://insta-mern-ap.herokuapp.com/mypost", requireLogin, (req, res) => {
   Post.find({ postedBy: req.user._id })
     .then((mypost) => {
       res.json({ mypost });
@@ -41,7 +41,7 @@ router.get("/mypost", requireLogin, (req, res) => {
     });
 });
 
-router.post("/createpost", requireLogin, (req, res) => {
+router.post("https://insta-mern-ap.herokuapp.com/createpost", requireLogin, (req, res) => {
   const { title, body, pic } = req.body;
   if (!title || !body || !pic) {
     return res.status(422).json({ error: "Please add all the fields" });
@@ -64,7 +64,7 @@ router.post("/createpost", requireLogin, (req, res) => {
     });
 });
 
-router.put("/like", requireLogin, (req, res) => {
+router.put("https://insta-mern-ap.herokuapp.com/like", requireLogin, (req, res) => {
   Post.findByIdAndUpdate(
     req.body.postId,
     {
@@ -82,7 +82,7 @@ router.put("/like", requireLogin, (req, res) => {
   });
 });
 
-router.put("/unlike", requireLogin, (req, res) => {
+router.put("https://insta-mern-ap.herokuapp.com/unlike", requireLogin, (req, res) => {
   Post.findByIdAndUpdate(
     req.body.postId,
     {
@@ -101,7 +101,7 @@ router.put("/unlike", requireLogin, (req, res) => {
   });
 });
 
-router.put("/comment", requireLogin, (req, res) => {
+router.put("https://insta-mern-ap.herokuapp.com/comment", requireLogin, (req, res) => {
   const comment = {
     text: req.body.text,
     postedBy: req.user._id,
@@ -126,7 +126,7 @@ router.put("/comment", requireLogin, (req, res) => {
     });
 });
 
-router.delete("/deletepost/:postId", requireLogin, (req, res) => {
+router.delete("https://insta-mern-ap.herokuapp.com/deletepost/:postId", requireLogin, (req, res) => {
   Post.findOne({ _id: req.params.postId })
     .populate("postedBy", "_id")
     .exec((err, post) => {
