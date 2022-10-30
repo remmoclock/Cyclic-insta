@@ -8,8 +8,6 @@ require("dotenv").config();
 require("./models/user");
 require("./models/post");
 
-// test
-
 const dbKey = process.env.USER_KEY;
 
 mongoose.connect(
